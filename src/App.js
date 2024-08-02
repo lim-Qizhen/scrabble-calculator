@@ -1,10 +1,10 @@
 import './App.css';
-import TileSlot from "./components/TileSlot";
+import Playboard from "./components/Playboard";
 
 function App() {
     return (
         <div className="App">
-            <TileSlot letter={"A"}/>
+            <Playboard/>
         </div>
     );
 }

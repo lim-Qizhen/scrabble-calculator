@@ -1,9 +1,23 @@
-import React from 'react';
-import ScrabbleTile from "./ScrabbleTile";
-import "./TileSlot.css"
+import React, { forwardRef } from "react";
+import "./TileSlot.css";
+import { letterScores } from "../constants";
 
-const TileSlot = ({letter}) => {
-    return letter ? <ScrabbleTile letter={letter}/> : <div className='slot'/>
-};
+const TileSlot = forwardRef(
+  ({ letter, index, handleChange, handleKeydown }, ref) => {
+    const score = letter ? letterScores[letter.toUpperCase()] : "";
+    return (
+      <div className="slot">
+        <input
+          maxLength={1}
+          onChange={handleChange}
+          onKeyDown={handleKeydown}
+          value={letter}
+          ref={ref}
+        />
+        <span className="score">{score}</span>
+      </div>
+    );
+  },
+);
 
 export default TileSlot;
