@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import InputSection from "./InputSection";
 import { maxLength } from "../constants";
-import { calculateScore } from "../apis/ScoreApi";
+import { calculateScore, getWords, submitWord } from "../apis/ScoreApi";
 import { GrEdit } from "react-icons/gr";
 import NameModal from "./NameModal";
 
@@ -12,7 +12,8 @@ const Playboard = () => {
   const [letters, setLetters] = useState(originalLetters);
   const [score, setScore] = useState(0);
   const [wordError, setWordError] = useState("");
-  const [nameModalOpen, setNameModalOpen] = useState(true);
+  const [nameModalOpen, setNameModalOpen] = useState(false);
+  const word = useMemo(() => letters.join(""), [letters]);
 
   const handleReset = () => setLetters(originalLetters);
 
@@ -29,7 +30,6 @@ const Playboard = () => {
           setWordError("Word is invalid");
         }
       };
-      const word = letters.join("");
       if (word === "") {
         setScore(0);
         setWordError("");
@@ -40,7 +40,16 @@ const Playboard = () => {
     return () => {
       clearTimeout(handler);
     };
-  }, [letters]);
+  }, [word]);
+
+  const handleSubmit = async () => {
+    try {
+      await submitWord(name, word);
+      handleReset();
+    } catch (e) {
+      console.log("sad");
+    }
+  };
 
   return (
     <>
@@ -50,10 +59,10 @@ const Playboard = () => {
       <span>Score: {score}</span>
       {wordError && <span>{wordError}</span>}
       <button onClick={handleReset}>Reset Tiles</button>
-      <button onClick={handleReset} disabled={score === 0}>
+      <button onClick={handleSubmit} disabled={score === 0}>
         Submit Tiles
       </button>
-      <button onClick={handleReset}>Show high scores</button>
+      <button onClick={getWords}>Show high scores</button>
       <NameModal
         nameModalOpen={nameModalOpen}
         setNameModalOpen={setNameModalOpen}

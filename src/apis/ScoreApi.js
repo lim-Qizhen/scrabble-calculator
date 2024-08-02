@@ -11,3 +11,21 @@ export const calculateScore = async (word) => {
     throw e;
   }
 };
+
+export const submitWord = async (name, word) => {
+  const url = "/scores";
+  try {
+    await axios.post(url, { name, word });
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const getWords = async () => {
+  const url = "/scores";
+  try {
+    await axios.get(url);
+  } catch (e) {
+    throw e;
+  }
+};
