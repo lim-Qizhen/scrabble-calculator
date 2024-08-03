@@ -1,9 +1,8 @@
 import React, { useRef } from "react";
 import TileSlot from "./TileSlot";
-import "./InputSection.css";
 import { maxLength } from "../constants";
 
-const InputSection = ({ letters, setLetters }) => {
+const WordInputSection = ({ letters, setLetters }) => {
   const inputRefs = useRef(Array(maxLength).fill(null));
   const handleChange = (event, index) => {
     const newInput = [...letters];
@@ -30,7 +29,7 @@ const InputSection = ({ letters, setLetters }) => {
   };
 
   return (
-    <div className="input-section">
+    <div className="flex flex-row">
       {letters.map((letter, i) => (
         <TileSlot
           letter={letter}
@@ -46,4 +45,4 @@ const InputSection = ({ letters, setLetters }) => {
   );
 };
 
-export default InputSection;
+export default WordInputSection;

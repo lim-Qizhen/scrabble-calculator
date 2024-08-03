@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
-import InputSection from "./InputSection";
+import WordInputSection from "./WordInputSection";
 import { maxLength } from "../constants";
 import { calculateScore, getWords, submitWord } from "../apis/ScoreApi";
 import { GrEdit } from "react-icons/gr";
 import NameModal from "./NameModal";
 
-const Playboard = () => {
+const Playboard = ({ name, setName }) => {
   const originalLetters = Array(maxLength).fill("");
 
-  const [name, setName] = useState("");
   const [letters, setLetters] = useState(originalLetters);
   const [score, setScore] = useState(0);
   const [wordError, setWordError] = useState("");
@@ -53,16 +52,21 @@ const Playboard = () => {
 
   return (
     <>
-      <span>Name: {name}</span>
-      <GrEdit onClick={() => setNameModalOpen(true)} />
-      <InputSection letters={letters} setLetters={setLetters} />
+      <span>
+        Name: {name}
+        <GrEdit onClick={() => setNameModalOpen(true)} />
+      </span>
+
+      <WordInputSection letters={letters} setLetters={setLetters} />
       <span>Score: {score}</span>
-      {wordError && <span>{wordError}</span>}
-      <button onClick={handleReset}>Reset Tiles</button>
-      <button onClick={handleSubmit} disabled={score === 0}>
-        Submit Tiles
-      </button>
-      <button onClick={getWords}>Show high scores</button>
+      {wordError && <span className="text-rose-500">{wordError}</span>}
+      <div className="flex gap-2 relative top-10">
+        <button onClick={handleReset}>Reset Tiles</button>
+        <button onClick={handleSubmit} disabled={score === 0}>
+          Submit Tiles
+        </button>
+        <button onClick={getWords}>Show high scores</button>
+      </div>
       <NameModal
         nameModalOpen={nameModalOpen}
         setNameModalOpen={setNameModalOpen}
