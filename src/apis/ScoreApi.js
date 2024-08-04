@@ -24,7 +24,7 @@ export const submitWord = async (name, word) => {
 export const getWords = async () => {
   const url = "/scores";
   try {
-    await axios.get(url);
+    return await axios.get(url);
   } catch (e) {
     throw e;
   }

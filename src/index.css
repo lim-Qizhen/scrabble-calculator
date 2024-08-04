@@ -31,3 +31,11 @@ button {
 input {
     @apply rounded-md p-2 appearance-none outline-none w-full
 }
+
+table {
+    @apply bg-black
+}
+
+th, td {
+    @apply px-2 py-0.5
+}
