@@ -2,16 +2,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import WordInputSection from "./WordInputSection";
 import { maxLength } from "../constants";
 import { calculateScore, getWords, submitWord } from "../apis/ScoreApi";
-import { GrEdit } from "react-icons/gr";
-import NameModal from "./NameModal";
+import PlayBoardHeader from "./PlayBoardHeader";
 
-const Playboard = ({ name, setName }) => {
+const PlayBoard = ({ name, setName }) => {
   const originalLetters = Array(maxLength).fill("");
 
   const [letters, setLetters] = useState(originalLetters);
   const [score, setScore] = useState(0);
   const [wordError, setWordError] = useState("");
-  const [nameModalOpen, setNameModalOpen] = useState(false);
   const word = useMemo(() => letters.join(""), [letters]);
 
   const handleReset = () => setLetters(originalLetters);
@@ -52,29 +50,23 @@ const Playboard = ({ name, setName }) => {
 
   return (
     <>
-      <span>
-        Name: {name}
-        <GrEdit onClick={() => setNameModalOpen(true)} />
-      </span>
-
+      <PlayBoardHeader name={name} setName={setName} />
       <WordInputSection letters={letters} setLetters={setLetters} />
-      <span>Score: {score}</span>
-      {wordError && <span className="text-rose-500">{wordError}</span>}
+      <div className="flex flex-col h-14 mt-3">
+        <span>Score: {score}</span>
+        <span className="text-rose-500 h-6">{wordError}</span>
+      </div>
       <div className="flex gap-2 relative top-10">
-        <button onClick={handleReset}>Reset Tiles</button>
+        <button onClick={handleReset} disabled={!word}>
+          Reset Tiles
+        </button>
         <button onClick={handleSubmit} disabled={score === 0}>
           Submit Tiles
         </button>
         <button onClick={getWords}>Show high scores</button>
       </div>
-      <NameModal
-        nameModalOpen={nameModalOpen}
-        setNameModalOpen={setNameModalOpen}
-        userName={name}
-        setUserName={setName}
-      />
     </>
   );
 };
 
-export default Playboard;
+export default PlayBoard;

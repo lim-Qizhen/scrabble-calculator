@@ -7,7 +7,7 @@ const TileSlot = forwardRef(
     return (
       <div className="h-[50px] bg-cover bg-[url('/src/assets/scrabble_tile.png')] w-[50px] m-1 rounded flex justify-center align-middle border-1">
         <input
-          className="w-full h-full border-none bg-transparent text-center font-sans text-2xl font-bold cursor-pointer uppercase outline-none"
+          className="h-full border-none bg-transparent text-center font-sans text-2xl font-bold cursor-pointer uppercase"
           maxLength={1}
           onChange={handleChange}
           onKeyDown={handleKeydown}

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Playboard from "./Playboard";
+import PlayBoard from "./PlayBoard";
 
 const WelcomePage = () => {
   const [name, setName] = useState("");
   const [openBoard, setOpenBoard] = useState(false);
 
   return openBoard ? (
-    <Playboard name={name} setName={setName} />
+    <PlayBoard name={name} setName={setName} />
   ) : (
     <div className="flex flex-col">
       <div className="mb-5">

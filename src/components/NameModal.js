@@ -16,8 +16,9 @@ const NameModal = ({
         setUserName(name);
         setNameModalOpen(false);
       }}
+      disableOnSave={!name}
     >
-      Set your name
+      <div>Edit your name:</div>
       <input
         onChange={(event) => {
           setName(event.target.value);
