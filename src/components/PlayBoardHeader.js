@@ -14,7 +14,7 @@ const PlayBoardHeader = ({ name, setName }) => {
             </h1>
           </div>
           <div className="text-left">
-            <h1 className="font-sans font-bold tracking-wide text-2xl">
+            <h1 className="font-sans font-bold tracking-wide text-xl">
               Calculator
             </h1>
           </div>

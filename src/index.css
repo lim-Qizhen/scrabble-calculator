@@ -39,3 +39,12 @@ table {
 th, td {
     @apply px-2 py-0.5
 }
+
+.Toastify__toast-container {
+    min-width: 400px;
+    text-align: left;
+}
+
+.Toastify__toast {
+    width: 100%;
+}

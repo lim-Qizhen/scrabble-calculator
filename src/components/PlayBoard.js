@@ -6,6 +6,7 @@ import PlayBoardHeader from "./PlayBoardHeader";
 import ScoresModal from "./ScoresModal";
 import { mapScoreResponseToTableData } from "../mappers/ScoreMapper";
 import { toast, ToastContainer } from "react-toastify";
+import { isAxiosError } from "axios";
 
 const PlayBoard = ({ name, setName }) => {
   const originalLetters = Array(maxLength).fill("");
@@ -28,8 +29,12 @@ const PlayBoard = ({ name, setName }) => {
           setScore(calculatedScore ?? 0);
           setWordError("");
         } catch (e) {
-          setScore(0);
-          setWordError("Word is invalid");
+          if (isAxiosError(e) && e.code === "ERR_NETWORK") {
+            toast.error("There was a network error. Please try again.");
+          } else {
+            setScore(0);
+            setWordError("Word is invalid");
+          }
         }
       };
       if (word === "") {
@@ -38,7 +43,7 @@ const PlayBoard = ({ name, setName }) => {
       } else {
         word && getScore(word);
       }
-    }, 1000);
+    }, 500);
     return () => {
       clearTimeout(handler);
     };
@@ -67,7 +72,7 @@ const PlayBoard = ({ name, setName }) => {
       );
     } catch (e) {
       toast.error(
-        "Sorry but there was an error retrieving the scores now. Please try again later!",
+        "Sorry but there was an error retrieving the latest scores now. Please try again later!",
       );
     }
   };
@@ -75,7 +80,7 @@ const PlayBoard = ({ name, setName }) => {
   return (
     <>
       <PlayBoardHeader name={name} setName={setName} />
-      <main className="flex justify-center bg-gradient-to-br from-green-950 to-green-800 mt-[96px] h-[calc(100vh-96px)]">
+      <main className="App flex justify-center bg-gradient-to-br from-green-950 to-green-800 mt-[96px] h-[calc(100vh-96px)]">
         <ToastContainer
           position="top-center"
           autoClose={5000}
@@ -87,10 +92,12 @@ const PlayBoard = ({ name, setName }) => {
         />
         <div className="flex flex-col justify-center items-center">
           <WordInputSection letters={letters} setLetters={setLetters} />
+          {/*score and error message*/}
           <div className="flex flex-col h-14 mt-3">
             <span>Score: {score}</span>
             <span className="text-rose-500 h-6">{wordError}</span>
           </div>
+          {/*buttons to reset tiles, submit word and show high scores*/}
           <div className="flex gap-2 relative top-10">
             <button onClick={handleReset} disabled={!word}>
               Reset Tiles

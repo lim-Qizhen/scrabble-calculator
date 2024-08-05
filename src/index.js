@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initAxios } from "./apis/axiosConfig";
+import "react-toastify/dist/ReactToastify.min.css";
 
 initAxios();
 const root = ReactDOM.createRoot(document.getElementById("root"));
