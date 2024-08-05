@@ -24,6 +24,7 @@ const PlayBoardHeader = ({ name, setName }) => {
           <GrEdit
             onClick={() => setNameModalOpen(true)}
             className="ml-2 cursor-pointer flex-shrink-0"
+            data-testid="edit-name-icon"
           />
         </div>
       </header>

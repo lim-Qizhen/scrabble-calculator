@@ -19,7 +19,7 @@ const ScoresTable = ({ rows }) => {
       <tbody>
         {rows.length > 0 ? (
           rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={`row-${row.name}-${row.word}`}>
               <td>{row.name}</td>
               <td>{row.word?.toUpperCase()}</td>
               <td className="text-right">{row.score}</td>

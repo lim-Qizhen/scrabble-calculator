@@ -16,7 +16,7 @@ const NameModal = ({
         setUserName(name);
         setNameModalOpen(false);
       }}
-      disableOnSave={!name}
+      disableOnSave={!name || name === userName}
     >
       <div>Edit your name:</div>
       <input

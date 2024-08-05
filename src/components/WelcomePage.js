@@ -22,8 +22,11 @@ const WelcomePage = () => {
         </div>
       </div>
       <div>
-        <p className="text-left mb-2">Please enter your name</p>
+        <label htmlFor="name" className="text-left mb-2">
+          Please enter your name
+        </label>
         <input
+          name="name"
           className="w-full"
           onChange={(event) => setName(event.target.value)}
           onKeyDown={(event) => {
