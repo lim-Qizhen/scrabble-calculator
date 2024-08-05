@@ -15,7 +15,8 @@ export const calculateScore = async (word) => {
 export const submitWord = async (name, word) => {
   const url = "/scores";
   try {
-    await axios.post(url, { name, word });
+    const response = await axios.post(url, { name, word });
+    return response.data;
   } catch (e) {
     throw e;
   }

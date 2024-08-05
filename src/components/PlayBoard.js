@@ -5,6 +5,7 @@ import { calculateScore, getWords, submitWord } from "../apis/ScoreApi";
 import PlayBoardHeader from "./PlayBoardHeader";
 import ScoresModal from "./ScoresModal";
 import { mapScoreResponseToTableData } from "../mappers/ScoreMapper";
+import { toast, ToastContainer } from "react-toastify";
 
 const PlayBoard = ({ name, setName }) => {
   const originalLetters = Array(maxLength).fill("");
@@ -45,10 +46,15 @@ const PlayBoard = ({ name, setName }) => {
 
   const handleSubmit = async () => {
     try {
-      await submitWord(name, word);
+      const response = await submitWord(name, word);
       handleReset();
+      toast.success(
+        `Congratulations ${response.name}! You have successfully submitted the word ${response.word} with a score of ${response.score}!`,
+      );
     } catch (e) {
-      console.log("sad");
+      toast.error(
+        "Sorry, but there was an error submitting your word. Please try again!",
+      );
     }
   };
 
@@ -60,27 +66,42 @@ const PlayBoard = ({ name, setName }) => {
         (response.data?.content ?? []).map(mapScoreResponseToTableData),
       );
     } catch (e) {
-      console.log("sad");
+      toast.error(
+        "Sorry but there was an error retrieving the scores now. Please try again later!",
+      );
     }
   };
 
   return (
     <>
       <PlayBoardHeader name={name} setName={setName} />
-      <WordInputSection letters={letters} setLetters={setLetters} />
-      <div className="flex flex-col h-14 mt-3">
-        <span>Score: {score}</span>
-        <span className="text-rose-500 h-6">{wordError}</span>
-      </div>
-      <div className="flex gap-2 relative top-10">
-        <button onClick={handleReset} disabled={!word}>
-          Reset Tiles
-        </button>
-        <button onClick={handleSubmit} disabled={score === 0}>
-          Submit Tiles
-        </button>
-        <button onClick={handleShowScores}>Show high scores</button>
-      </div>
+      <main className="flex justify-center bg-gradient-to-br from-green-950 to-green-800 mt-[96px] h-[calc(100vh-96px)]">
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+        />
+        <div className="flex flex-col justify-center items-center">
+          <WordInputSection letters={letters} setLetters={setLetters} />
+          <div className="flex flex-col h-14 mt-3">
+            <span>Score: {score}</span>
+            <span className="text-rose-500 h-6">{wordError}</span>
+          </div>
+          <div className="flex gap-2 relative top-10">
+            <button onClick={handleReset} disabled={!word}>
+              Reset Tiles
+            </button>
+            <button onClick={handleSubmit} disabled={score === 0}>
+              Submit Tiles
+            </button>
+            <button onClick={handleShowScores}>Show high scores</button>
+          </div>
+        </div>
+      </main>
       <ScoresModal
         isOpen={scoresModalOpen}
         onHide={() => setScoresModalOpen(false)}

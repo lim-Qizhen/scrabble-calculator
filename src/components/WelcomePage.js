@@ -8,7 +8,7 @@ const WelcomePage = () => {
   return openBoard ? (
     <PlayBoard name={name} setName={setName} />
   ) : (
-    <div className="flex flex-col">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-br from-green-950 to-green-800 min-h-screen">
       <div className="mb-5">
         <div className="rounded-lg bg-red-700 px-3 py-1">
           <h1 className="font-sans font-bold tracking-wide text-6xl">

@@ -6,7 +6,7 @@ const PlayBoardHeader = ({ name, setName }) => {
   const [nameModalOpen, setNameModalOpen] = useState(false);
   return (
     <>
-      <div className="fixed top-0 left-0 bg-black w-full h-24 flex px-4 justify-between items-center">
+      <header className="fixed top-0 left-0 bg-black w-full h-24 flex px-4 justify-between items-center">
         <div className="w-fit">
           <div className="rounded-lg bg-red-700 px-3 py-1 w-fit">
             <h1 className="font-sans font-bold tracking-wide text-4xl">
@@ -26,7 +26,7 @@ const PlayBoardHeader = ({ name, setName }) => {
             className="ml-2 cursor-pointer flex-shrink-0"
           />
         </div>
-      </div>
+      </header>
       <NameModal
         nameModalOpen={nameModalOpen}
         setNameModalOpen={setNameModalOpen}

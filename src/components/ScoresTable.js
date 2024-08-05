@@ -2,7 +2,7 @@ import React from "react";
 
 const ScoresTable = ({ rows }) => {
   return (
-    <table className="w-full table-fixed even-row-color">
+    <table className="w-full table-fixed rounded">
       <thead>
         <tr>
           <th scope="col" className="w-3 text-left">
@@ -21,14 +21,14 @@ const ScoresTable = ({ rows }) => {
           rows.map((row) => (
             <tr key={row.id}>
               <td>{row.name}</td>
-              <td>{row.word}</td>
+              <td>{row.word?.toUpperCase()}</td>
               <td className="text-right">{row.score}</td>
             </tr>
           ))
         ) : (
           <tr>
             <td colSpan={3} className="text-center p-10">
-              No scores submitted yet
+              No data
             </td>
           </tr>
         )}
