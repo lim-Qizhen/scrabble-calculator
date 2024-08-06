@@ -103,9 +103,9 @@ const PlayBoard = ({ name, setName }) => {
               Reset Tiles
             </button>
             <button onClick={handleSubmit} disabled={score === 0}>
-              Submit Tiles
+              Submit Word
             </button>
-            <button onClick={handleShowScores}>Show high scores</button>
+            <button onClick={handleShowScores}>Show High Scores</button>
           </div>
         </div>
       </main>

@@ -2,7 +2,7 @@ import React from "react";
 
 const ScoresTable = ({ rows }) => {
   return (
-    <table className="w-full table-fixed rounded">
+    <table className="w-full table-fixed rounded" data-testid="scores-table">
       <thead>
         <tr>
           <th scope="col" className="w-3 text-left">
