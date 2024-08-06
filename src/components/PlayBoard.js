@@ -29,7 +29,10 @@ const PlayBoard = ({ name, setName }) => {
           setScore(calculatedScore ?? 0);
           setWordError("");
         } catch (e) {
-          if (isAxiosError(e) && e.code === "ERR_NETWORK") {
+          if (
+            isAxiosError(e) &&
+            (e.code === "ERR_NETWORK" || e.response.status === 500)
+          ) {
             toast.error("There was a network error. Please try again.");
           } else {
             setScore(0);
